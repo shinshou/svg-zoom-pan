@@ -1,0 +1,24 @@
+version: '3'
+services:
+  api:
+    image: node:14.16.0-buster
+    container_name: node_express
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+    #コンテナを起動させ続けるよう設定
+    tty: true
+
+    ports:
+      - '3000:3000'
+
+    # ソースコードを格納するフォルダをマウント
+    #（ホスト側の./apiをコンテナの/appにマウント）
+    volumes:
+      - ./api:/app
+
+    # 起動時のカレントフォルダを指定
+    working_dir: /app
+
+    # 起動後に実行するコマンドを指定
+    command: npm start
